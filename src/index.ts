@@ -4,6 +4,7 @@ import { env } from "./config/env";
 import { logger } from "./utils/logger";
 import { initRedis, isRedisHealthy, closeRedis } from "./config/redis";
 import { prisma, disconnectPrisma } from "./db/prisma";
+import { uploadRoutes } from "./routes/uploadRoutes";
 
 // Create root Express application instance
 export const app = express();
@@ -19,6 +20,9 @@ app.use((req: Request, _res: Response, next: NextFunction) => {
   logger.debug({ method: req.method, url: req.url });
   next();
 });
+
+// Mount document upload and management routes
+app.use("/api/documents", uploadRoutes);
 
 // Health check endpoint reporting overall system and dependent service availability
 app.get("/health", async (_req: Request, res: Response) => {
