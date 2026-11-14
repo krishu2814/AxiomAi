@@ -40,3 +40,4 @@ describe("VectorMath Utilities", () => {
     expect(VectorMath.euclideanDistance(a, b)).toBe(5);
   });
 });
+
